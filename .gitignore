@@ -1,3 +1,9 @@
 target/
 *.log
 *.iml
+*.war
+*.class
+*.jar
+*.DS_Store
+.idea/
+*.iml
