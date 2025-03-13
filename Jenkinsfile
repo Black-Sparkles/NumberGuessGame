@@ -11,7 +11,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            agent { label 'develop' }
+            agent { label 'master' }
             steps {
                 script {
                     echo "🔄 Checking out source code..."
