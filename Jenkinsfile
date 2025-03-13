@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     echo "🔄 Checking out source code..."
-                    checkout([$class: 'GitSCM', branches: [[name: 'develop']], userRemoteConfigs: [[url: "${GIT_URL}"]]])
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: "${GIT_URL}"]]])
                 }
             }
         }
