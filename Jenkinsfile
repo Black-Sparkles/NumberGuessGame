@@ -2,7 +2,7 @@ pipeline {
     agent none 
 
     environment {
-        GIT_URL = 'https://github.com/ctoweh/NumberGuessGame'
+        GIT_URL = 'https://github.com/Black-Sparkles/NumberGuessGame'
         BUILD_NODE = 'build-node'
         DEPLOY_NODE = 'deploy-node'
         TOMCAT_DIR = '/home/ec2-user/apache-tomcat-9.0.102'
@@ -11,11 +11,11 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            agent { label 'master' }
+            agent { label 'develop' }
             steps {
                 script {
                     echo "🔄 Checking out source code..."
-                    checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: "${GIT_URL}"]]])
+                    checkout([$class: 'GitSCM', branches: [[name: 'develop']], userRemoteConfigs: [[url: "${GIT_URL}"]]])
                 }
             }
         }
