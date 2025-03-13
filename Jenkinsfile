@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh '''
                 scp -i ${SSH_KEY} \
-                target/*.war ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_PATH}/NumberGuessGame.war
+                target/*.war ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_PATH}/NumberGuessGame-1.0-SNAPSHOT.war
                 '''
             }
         }
