@@ -5,7 +5,7 @@ pipeline {
         DEPLOY_SERVER = '172.31.5.20'
         DEPLOY_USER = 'ec2-user'
         DEPLOY_PATH = '/opt/tomcat/webapps'
-	SSH_KEY = '/home/ec2-user/project.pem' 
+	SSH_KEY = '/var/lib/jenkins/.ssh/project.pem' 
     }
 
     stages {
@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                scp -i ${SSH_KEY} \
+                scp -o StrictHostKeyChecking=no -i ${SSH_KEY} \
                 target/*.war ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_PATH}/NumberGuessGame-1.0-SNAPSHOT.war
                 '''
             }
