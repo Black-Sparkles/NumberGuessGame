@@ -5,7 +5,7 @@ pipeline {
         DEPLOY_SERVER = '172.31.5.20'
         DEPLOY_USER = 'ec2-user'
         DEPLOY_PATH = '/opt/tomcat/webapps'
-	SSH_KEY = '/home/ec2-user/project.pem' 
+	SSH_KEY = '/home/ec2-user/.ssh/authorized_keys' 
     }
 
     stages {
