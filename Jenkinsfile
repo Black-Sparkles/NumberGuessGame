@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    environment {
+        DEPLOY_SERVER = '172.31.5.20'
+        DEPLOY_USER = 'ec2-user'
+        DEPLOY_PATH = '/opt/tomcat/webapps'
+        SSH_KEY = '/var/lib/jenkins/.ssh/project.pem'
+    }
+
+    tools {
+        maven 'Default Maven' // Ensure Maven is configured in Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'develop', url: 'https://github.com/Black-Sparkles/NumberGuessGame.git'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') { // Ensure 'SonarQube' is the correct name in Jenkins
+                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=NumberGuessGame'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                scp -o StrictHostKeyChecking=no -i ${SSH_KEY} \
+                target/*.war ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_PATH}/NumberGuessGame.war
+                '''
+            }
+        }
+    }
+}
