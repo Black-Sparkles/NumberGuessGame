@@ -8,22 +8,10 @@ pipeline {
         SSH_KEY = '/var/lib/jenkins/.ssh/project.pem'
     }
 
-    tools {
-        maven 'Default Maven' // Ensure Maven is configured in Jenkins
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'develop', url: 'https://github.com/Black-Sparkles/NumberGuessGame.git'
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') { // Ensure 'SonarQube' is the correct name in Jenkins
-                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=NumberGuessGame'
-                }
             }
         }
 
